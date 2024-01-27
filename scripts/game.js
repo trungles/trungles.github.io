@@ -4,7 +4,7 @@ var data;
 var dataCopy;
 
 function input(event) {   
-    
+
     if (event.key === "Backspace" && cnt > 0) {
         // if backspace and it's not first cell
         // decrement and delete text in that cell
@@ -186,5 +186,3 @@ function updateStats() {
     }
     
 }
-
-console.log("test");

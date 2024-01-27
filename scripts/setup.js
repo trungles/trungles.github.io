@@ -1,7 +1,7 @@
 var solution;
 var wordList = JSON.parse(localStorage.getItem("words"));
 
-document.addEventListener("DOMContentLoaded", onLoad);
+// document.addEventListener("DOMContentLoaded", onLoad);
 
 async function readFile(url) {
     const data = await fetch(url);
@@ -28,11 +28,11 @@ async function onLoad() {
     reset();
     updateStats();
     document.addEventListener("keydown", input);
-    document.getElementById("reset").addEventListener("click", reset);
-    document.addEventListener("keydown", blurButton);
+    document.getElementById("reset").addEventListener("click", () => {reset(); document.getElementById("reset").blur()});
     let lettersArr = Array.from(document.getElementsByClassName("letter"));
     for (i = 0; i < lettersArr.length; i++) {
         let currLetter = lettersArr[i].id;
-        lettersArr[i].addEventListener("click", () => {input(new KeyboardEvent("keydown", {key : currLetter}))});
+        let currElement = lettersArr[i];
+        currElement.addEventListener("click", () => {document.dispatchEvent(new KeyboardEvent("keydown", {key : currLetter})); currElement.blur();});
     }
 }
