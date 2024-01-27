@@ -22,12 +22,15 @@ function input(event) {
         }
         updateBoard(matches, dataCopy.slice(0, 5));
         if (checkWin(matches)) {
-            dataCopy = dataCopy.slice(0,0); // stop allowing input
             endGame(true);
+            // stop allowing input
+            cnt = 0;
+            dataCopy = dataCopy.slice(0,0); 
         // if  last row
         } else if (dataCopy.length === 5) {
-            dataCopy = dataCopy.slice(0,0); // stop allowing input
             endGame(false);
+            cnt = 0; 
+            dataCopy = dataCopy.slice(0,0); 
         } else {
             // move to next row
             dataCopy = dataCopy.slice(5, dataCopy.length);
@@ -70,7 +73,7 @@ function checkWord(word) {
     for (i = 0; i < word.length; i++) {
         if (word[i] !== undefined &&  solutionArr.indexOf(word[i].innerText.toLowerCase()) !== -1) {
             matches[i] = 0;
-            delete solutionArr[solutionArr.indexOf(word[i].innerText)];
+            delete solutionArr[solutionArr.indexOf(word[i].innerText.toLowerCase())];
             delete word[i];
         }
     }

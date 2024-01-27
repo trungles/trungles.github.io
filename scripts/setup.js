@@ -1,7 +1,7 @@
 var solution;
 var wordList = JSON.parse(localStorage.getItem("words"));
 
-document.addEventListener("DOMContentLoaded", onLoad);
+// document.addEventListener("DOMContentLoaded", onLoad);
 
 async function readFile(url) {
     const data = await fetch(url);
