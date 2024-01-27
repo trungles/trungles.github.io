@@ -2,6 +2,7 @@ body {
     font-family: "Franklin Gothic" sans-serif;
     font-weight: bold;
     color: black;
+    margin-bottom:30px;
 }
 button {
     font-weight: bold;
