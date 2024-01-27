@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <link rel="stylesheet" href="./style/style.css">
+        <script src="./scripts/setup.js"></script>
+        <script src="./scripts/game.js"></script>
+        <title>Word Game</title>
+    </head>
+    <body id="main"> 
+        <div class="container">
+            <p id="title">Word Game</p>
+        </div>
+        <div class="container">
+            <table class="board">
+                <tr>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                </tr>
+                <tr>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                </tr>
+                <tr>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                </tr>
+                <tr>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                </tr>
+                <tr>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                </tr>
+                <tr>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                    <td class="cell"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="container">
+            <div id="result"></div>
+        </div>
+        <div class="container" id="alphacontainer">
+            <table class="alphabet">
+                <tr>
+                    <td><button class="letter" id="Q">Q</button></td>
+                    <td><button class="letter" id="W">W</button></td>
+                    <td><button class="letter" id="E">E</button></td>
+                    <td><button class="letter" id="R">R</button></td>
+                    <td><button class="letter" id="T">T</button></td>
+                    <td><button class="letter" id="Y">Y</button></td>
+                    <td><button class="letter" id="U">U</button></td>
+                    <td><button class="letter" id="I">I</button></td>
+                    <td><button class="letter" id="O">O</button></td>
+                    <td><button class="letter" id="P">P</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="container">
+            <table class="alphabet">
+                <tr>
+                    <td><button class="letter" id="A">A</button></td>
+                    <td><button class="letter" id="S">S</button></td>
+                    <td><button class="letter" id="D">D</button></td>
+                    <td><button class="letter" id="F">F</button></td>
+                    <td><button class="letter" id="G">G</button></td>
+                    <td><button class="letter" id="H">H</button></td>
+                    <td><button class="letter" id="J">J</button></td>
+                    <td><button class="letter" id="K">K</button></td>
+                    <td><button class="letter" id="L">L</button></td>
+                </tr> 
+            </table>
+        </div>
+        <div class="container">
+            <table class="alphabet">
+                <tr>
+                    <td><button class="letter" id="Enter">ENTER</button></td>
+                    <td><button class="letter" id="Z">Z</button></td>
+                    <td><button class="letter" id="X">X</button></td>
+                    <td><button class="letter" id="C">C</button></td>
+                    <td><button class="letter" id="V">V</button></td>
+                    <td><button class="letter" id="B">B</button></td>
+                    <td><button class="letter" id="N">N</button></td>
+                    <td><button class="letter" id="M">M</button></td>
+                    <td><button class="letter" id="Backspace">DELETE</button></td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div class="container">    
+            <button style="background-color:#D3D6DA;" id="reset">NEW WORD</button>
+        </div>
+        <div class="container">
+            <p>STATISTICS</p>
+        </div>
+        <div class="container">
+            <table>
+                <tr>
+                    <td id="played"></td>
+                    <td id="percentage"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="container">
+            <p>GUESS DISTRIBUTION</p>
+        </div>
+        <div class="container" id="distribution">
+        </div>
+        <div class="container" id="rules">
+            <p>RULES</p>
+        </div>
+        <div id="rulesText">Try to guess the 5-letter word! <br><br>
+            Enter your guess into the grid by typing.<br><br>
+            The color of each letter will change depending on how well
+            your guess corresponds to the target word.<br><br>
+            <span class="green">Green:</span> The letter is in the target word and in the correct place.<br><br>
+            <span class="yellow">Yellow:</span> The letter is in the target word but not in the correct place.<br><br>
+            <span class="grey">Grey:</span> The letter is not in the word. 
+        </div>
+    </body>
+</html>
