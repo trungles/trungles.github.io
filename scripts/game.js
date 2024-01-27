@@ -186,3 +186,5 @@ function updateStats() {
     }
     
 }
+
+console.log("test");
