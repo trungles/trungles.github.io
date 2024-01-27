@@ -1,0 +1,85 @@
+body {
+    font-family: "Franklin Gothic" sans-serif;
+    font-weight: bold;
+    color: black;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+button {
+    font-weight: bold;
+    border: 0px;
+    border-radius: 5px;
+}
+.cell {
+    border: 2px solid;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: xx-large; 
+}
+.alphabet, .board {
+    justify-content: center;
+    align-items: center;
+}
+.letter {
+    height: 50px;
+    width: 35px;
+}
+.board {
+    border-spacing: 7.5px;
+    margin-bottom: 0px;
+}
+.container{
+    justify-content:center;
+    align-items: center;
+    display: flex;
+    white-space: pre;
+    flex-direction: column;
+}
+.letter {
+    font-size: medium;   
+}
+.green {
+    background-color:#6AAA64;
+    color: white;
+}
+.yellow {
+    background-color:#C9B458;
+    color: white;
+}
+.grey {
+    background-color:#777C7E;
+    color: white;
+}
+#Enter, #Backspace {
+    width:fit-content;
+}
+#rulesText {
+    font-weight: normal;
+    justify-content: center;
+    display: block;
+    width: 400px;
+    margin: auto;
+}
+#title {
+    font-size: 75px;
+    font-weight: bolder;
+    font-family: serif;
+    margin: 10px;
+}
+#distribution, #played, #percentage {
+    font-weight: normal;
+}
+#rules {
+    margin:auto;
+    width:50%;
+}
+#reset {
+    height: 40px;
+}
+#result {
+    font-size: x-small;
+    height: 15px;
+}
