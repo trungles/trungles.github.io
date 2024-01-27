@@ -29,6 +29,7 @@ async function onLoad() {
     updateStats();
     document.addEventListener("keydown", input);
     document.getElementById("reset").addEventListener("click", reset);
+    document.addEventListener("keydown", blurButton);
     let lettersArr = Array.from(document.getElementsByClassName("letter"));
     for (i = 0; i < lettersArr.length; i++) {
         let currLetter = lettersArr[i].id;
