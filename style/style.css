@@ -4,7 +4,8 @@ body {
     font-family: "Franklin Gothic", sans-serif;
     font-weight: bold;
     color: black;
-    margin-bottom: 30px;
+    margin-bottom: 30px
+    touch-action: manipulation;
 }
 button {
     font-weight: bold;
