@@ -11,7 +11,7 @@ function input(event) {
         cnt--;
         currCell = dataCopy[cnt];
         currCell.textContent = "";
-        currCell.style.borderColor = "#D3D6DA";
+        currCell.classList.remove("selected");
 
     } else if (event.key ==="Enter" && cnt === 5) { 
         // if submitting the word, check for win and proceed accordingly
@@ -41,7 +41,7 @@ function input(event) {
         // add it to the grid 
         currCell = dataCopy[cnt];
         currCell.textContent += event.key.toUpperCase();
-        currCell.style.borderColor = "#878A8C";
+        currCell.classList.add("selected");
         cnt++;
     }
 }
@@ -86,22 +86,32 @@ function checkWord(word) {
 }
 
 function updateBoard(matches, currRow) {
+    
     for (i = 0; i < matches.length; i++) {
         color = "";
         let currAlpha = document.getElementById(currRow[i].innerText);
         if (matches[i] === 1) {
-            color = "#6AAA64";
+            // green
+            color = "green";
         } else if (matches[i] == 0) {
-            color = "#C9B458";
+            // yellow
+            color = "yellow";
         } else {
-            color = "#777C7E";
+            // grey
+            color = "grey";
         }
-        currAlpha.style.backgroundColor = color;
-        currRow[i].style.backgroundColor = color;
-        currRow[i].style.borderColor = color;
-        currRow[i].style.borderWidth = "2px";
-        currAlpha.style.color = "white";
-        currRow[i].style.color = "white";
+        // only update alphabet color when it's an 'upgrade'
+        // grey -> yellow -> green
+        currAlphaClassName = currAlpha.className;
+        if (currAlphaClassName === "letter") {
+            currAlpha.classList.add(color);
+        } else if (color === "green" && (currAlphaClassName === "letter yellow" || 
+                                        currAlphaClassName === "letter grey")) {
+            currAlpha.className = "letter green";
+        } else if (color === "yellow" && currAlphaClassName === "letter grey") {
+            currAlpha.className = "letter yellow";
+        }
+        currRow[i].className = "cell " + color;
     }
 }
 
@@ -136,10 +146,9 @@ function endGame(result) {
 function reset() {
     // reset everything that can change to its default value
     data = Array.from(document.getElementsByClassName("cell"));
-    data.forEach((cell) => {cell.innerText = ""; cell.style.backgroundColor = "transparent"; cell.style.borderColor = "#D3D6DA";
-    cell.style.color="black"});
+    data.forEach((cell) => {cell.innerText = ""; cell.className = "cell"});
     alpha = Array.from(document.getElementsByClassName("letter"));
-    alpha.forEach((letter) => {letter.style.backgroundColor = "#D3D6DA"; letter.style.color = "black"});
+    alpha.forEach((letter) => {letter.className = "letter"});
     dataCopy = data.slice();
     currCell = null;
     cnt = 0;
