@@ -101,7 +101,18 @@ function checkWord(word) {
         if (word[i] !== undefined) {
             matches[i] = -1;
             // keep track of letters found that aren't part of the solution
-            noMatches.add(word[i].innerText.toLowerCase());
+            // if the letter is already in partialMatches, add it to partialMatches instead
+            match = false;
+            for (let j = 0; j < partialMatches.length; j++) {
+                if (partialMatches[j].has(word[i].innerText.toLowerCase())) {
+                    match = true;
+                } 
+            }
+            if (match) {
+                partialMatches[i].add(word[i].innerText.toLowerCase())
+            } else {
+                noMatches.add(word[i].innerText.toLowerCase());
+            }
         }
     }
     return matches;
