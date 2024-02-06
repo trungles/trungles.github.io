@@ -117,3 +117,7 @@ button {
     font-size: x-small;
     height: 15px;
 }
+#easyMode {
+    position: relative;
+    vertical-align: middle;
+}

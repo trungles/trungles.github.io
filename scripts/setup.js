@@ -1,20 +1,19 @@
 var solution;
 var wordList = JSON.parse(localStorage.getItem("words"));
+var lexicon = new LexiconTrieModified();
 
 document.addEventListener("DOMContentLoaded", onLoad);
-
-async function readFile(url) {
-    const data = await fetch(url);
-    const text = await data.text();
-    return text.split("\n");
-
-}
 
 async function onLoad() {
     // if this is the first time loading, set valid wordList and localStorage
     if (localStorage.getItem("runBefore") === null) {
         localStorage.setItem("runBefore", true);
-        wordList = await readFile("./assets/five-letter-words.txt");
+
+        // read in words
+        const data = await fetch("./assets/five-letter-words.txt");
+        const text = await data.text();
+        wordList = text.split("\n");
+       
         localStorage.setItem("words", JSON.stringify(wordList));
         localStorage.setItem("guessCnt1", 0);
         localStorage.setItem("guessCnt2", 0);
@@ -27,6 +26,11 @@ async function onLoad() {
     // set everything up
     reset();
     updateStats();
+    for (let i = 0; i < wordList.length; i++) {
+        lexicon.addWord(wordList[i]);
+    }
+    console.log(wordList.length);
+    console.log(lexicon);
     document.addEventListener("keydown", input);
     document.getElementById("reset").addEventListener("click", () => {reset(); document.getElementById("reset").blur()});
     let lettersArr = Array.from(document.getElementsByClassName("letter"));

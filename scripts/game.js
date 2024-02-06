@@ -2,9 +2,11 @@ var cnt;
 var currCell;
 var data;
 var dataCopy;
+var bestGuess = [];
+var noMatches = new Set();
+var partialMatches = [new Set(), new Set(), new Set(), new Set(), new Set()];
 
 function input(event) {   
-
     if (event.key === "Backspace" && cnt > 0) {
         // if backspace and it's not first cell
         // decrement and delete text in that cell
@@ -20,6 +22,7 @@ function input(event) {
         if (matches.length == 0) {
             return;
         }
+        updateBestGuess(matches);
         updateBoard(matches, dataCopy.slice(0, 5));
         if (checkWin(matches)) {
             endGame(true);
@@ -53,18 +56,32 @@ function checkWord(word) {
     wordStr = "";
     word.forEach(word => wordStr += word.innerText);
 
+    easy = document.getElementById("easyMode").checked;
+
+
     // if it's not a word, reject input and tell user
     if (!wordList.includes(wordStr.toLowerCase())) {
-        document.getElementById("result").innerText = "Not a valid word, try again."
+        if (easy) {
+            document.getElementById("result").innerText = "Not a valid word, try again. You could try: " + suggestAnswers() + ".";
+        } else {
+            document.getElementById("result").innerText = "Not a valid word, try again.";
+        }
         setTimeout(() => {document.getElementById("result").innerText = ""}, 3000);
         return matches;
     }
     // multiple loops to handle the case of repeat characters in guess / answer
-    // delete matching chars and handle undefined so length deoesn't change and indices match
+    // delete matching chars and handle undefined so length doesn't change and indices match
     // check for total successes
     for (i = 0; i < word.length; i++) {
         if (i === solutionArr.indexOf(word[i].innerText.toLowerCase())) {
             matches[i] = 1;
+            // remove partialMatches since they're now full matches
+            // TODO: fix this
+            // if the letterArr includes the letter, remove that letter
+            for (j = 0; j < partialMatches.length; j++) {
+                partialMatches[j].delete(word[i].innerText.toLowerCase());
+            }
+            // partialMatches.filter((letterArr) => {return letterArr.includes(word[i].innerText)});
             delete solutionArr[i];
             delete word[i];
         }
@@ -73,6 +90,9 @@ function checkWord(word) {
     for (i = 0; i < word.length; i++) {
         if (word[i] !== undefined &&  solutionArr.indexOf(word[i].innerText.toLowerCase()) !== -1) {
             matches[i] = 0;
+            // update partial matches
+            // TODO change partialMatches
+            partialMatches[i].add(word[i].innerText.toLowerCase());
             delete solutionArr[solutionArr.indexOf(word[i].innerText.toLowerCase())];
             delete word[i];
         }
@@ -80,6 +100,8 @@ function checkWord(word) {
     for (i = 0; i < word.length; i++) {
         if (word[i] !== undefined) {
             matches[i] = -1;
+            // keep track of letters found that aren't part of the solution
+            noMatches.add(word[i].innerText.toLowerCase());
         }
     }
     return matches;
@@ -154,6 +176,11 @@ function reset() {
     cnt = 0;
     solution = getRandomWord(wordList);
     document.getElementById("result").innerText = "";
+    noMatches.clear();
+    for (let i = 0; i < partialMatches.length; i++) {
+        partialMatches[i].clear();
+    }
+    bestGuess = [];
 }
 
 function getRandomWord(wordList) {
@@ -176,7 +203,6 @@ function isAlphaChar(str) {
 }
 
 function updateStats() {
-
     let winCnt = 0;
     playedElem = document.getElementById("played");
     gamesPlayed = localStorage.getItem("gamesPlayed");
@@ -197,4 +223,39 @@ function updateStats() {
         percentage.innerText = Math.round(winCnt/gamesPlayed * 100) + "\nWin %";
     }
     
+}
+
+function updateBestGuess(matches) {
+    // computer knows the solution and matches corresponds to the letters of solution
+    // use that info to provide suggestions
+    for (let i = 0; i < 5; i++) {
+        if (bestGuess[i] === -1 && (matches[i] === 1 || matches[i] === 0)) {
+            bestGuess[i] = matches[i]; 
+        } else if (bestGuess[i] === 0 && matches[i] === 1) {
+            bestGuess[i] = matches[i];
+        } else if (bestGuess.length !== 5) {
+            bestGuess[i] = matches[i];
+        }
+    }
+}
+
+function suggestAnswers() {
+    ansArr = lexicon.suggestAnswer(solution, bestGuess, noMatches, partialMatches, lexicon.root, "", 0, []);
+    ret = "";
+    if (ansArr.length <= 3) {
+        for (i = 0; i < ansArr.length; i++) {
+            ret += ansArr[i] + ", ";
+        }
+        ret = ret.substring(0, ret.length - 2);
+    } else {
+        retSet = new Set();
+        while (retSet.size < 3) {
+            retSet.add(ansArr.get(randInt(0, ansArr.length)));
+        }
+        for (const word of retSet) {
+            ret += word + ", ";
+        }
+        ret = ret.substring(0, ret.length - 2);
+    }
+    return ret;
 }
