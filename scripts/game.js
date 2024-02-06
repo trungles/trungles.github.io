@@ -250,7 +250,7 @@ function suggestAnswers() {
     } else {
         retSet = new Set();
         while (retSet.size < 3) {
-            retSet.add(ansArr.get(randInt(0, ansArr.length)));
+            retSet.add(ansArr.get(getRandomInt(0, ansArr.length)));
         }
         for (const word of retSet) {
             ret += word + ", ";

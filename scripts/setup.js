@@ -29,8 +29,6 @@ async function onLoad() {
     for (let i = 0; i < wordList.length; i++) {
         lexicon.addWord(wordList[i]);
     }
-    console.log(wordList.length);
-    console.log(lexicon);
     document.addEventListener("keydown", input);
     document.getElementById("reset").addEventListener("click", () => {reset(); document.getElementById("reset").blur()});
     let lettersArr = Array.from(document.getElementsByClassName("letter"));
